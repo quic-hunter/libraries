@@ -1,0 +1,9 @@
+__pycache__/
+.venv/
+results/
+www/
+
+certificate/certs/
+
+docker-compose.yml
+!templates/docker-compose.yml
