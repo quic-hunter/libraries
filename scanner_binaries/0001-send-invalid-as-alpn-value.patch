@@ -1,0 +1,25 @@
+From f359f377bc61b4a537aeb72161bcb1cb2f678e05 Mon Sep 17 00:00:00 2001
+From: Anonymous Author <anonymous@author.com>
+Date: Fri, 26 May 2023 14:00:52 +0200
+Subject: [PATCH] send invalid as alpn value
+
+---
+ scanning/scan.go | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scanning/scan.go b/scanning/scan.go
+index 577b2dd..9da9bf3 100644
+--- a/scanning/scan.go
++++ b/scanning/scan.go
+@@ -52,7 +52,7 @@ func NewScanner(readHandler *read.ReadHandler, writeHandler *write.WriteHandler,
+ 		RootCAs:            pool,
+ 		InsecureSkipVerify: true, // we may not care if the certificate is insecure
+ 		KeyLogWriter:       writeHandler.KeyFile,
+-		NextProtos:         []string{"h3", "h3-29"},          // NextProtos is necessary when setting a QUIC version otherwise it fails with CRYPTO_ERROR
++		NextProtos:         []string{"invalid"},          // NextProtos is necessary when setting a QUIC version otherwise it fails with CRYPTO_ERROR
+ 		CipherSuites:       []uint16{0x1301, 0x1302, 0x1303}, // If undefined (or other than 1301, 1302, 1303) or nil it uses all 3 possible suites
+ 	}
+ 
+-- 
+2.30.2
+

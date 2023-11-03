@@ -1,0 +1,4 @@
+ip,name,image
+{%- for server in servers %}
+{{ server.ip }},{{ server.name }},{{ server.image }}
+{%- endfor %}

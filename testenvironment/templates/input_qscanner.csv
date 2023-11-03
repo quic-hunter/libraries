@@ -1,0 +1,4 @@
+ip,hostname,port,scid,dcid
+{%- for server in servers %}
+{{ server.ip }},{{ scanner.sni }},{{ globalserver.port }},,
+{%- endfor %}

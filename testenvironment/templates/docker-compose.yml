@@ -1,0 +1,58 @@
+version: "3.5"
+services:
+  {% for server in servers %}
+  {{ server.fullname }}:
+    image: {{ server.image }}
+    container_name: {{ server.fullname }}
+    hostname: {{ server.fullname }}
+    stdin_open: true
+    tty: true
+    volumes:
+      - {{ globalserver.www }}:/www:ro
+      - {{ globalserver.certs }}:/certs:ro
+    environment:
+      - CRON=
+      - ROLE=server
+      - SERVER_PARAMS={{ globalserver.params }}
+      - SSLKEYLOGFILE=/logs/keys.log
+      - QLOGDIR=/logs/qlog/
+      - TESTCASE={{ globalserver.testcase }}
+      - VERSION={{ globalserver.version }}
+    ulimits:
+      memlock: 67108864
+    networks:
+      scanning:
+        ipv4_address: {{ server.ip }}
+  {% endfor %}
+  scanner:
+    image: scanimage:latest
+    container_name: scanner
+    hostname: scanner
+    stdin_open: true
+    tty: true
+    volumes:
+      - {{ scanner.scanners }}:/scanners:ro
+      - {{ scanner.input }}:/input:ro
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    depends_on:
+      {%- for server in servers %}
+      - {{ server.fullname }}
+      {%- endfor %}
+    ulimits:
+      memlock: 67108864
+    networks:
+      scanning:
+        ipv4_address: {{ scanner.ip }}
+networks:
+  scanning:
+    name: scan_network
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+      com.docker.network.bridge.name: scan_network
+    enable_ipv6: false
+    ipam:
+      config:
+        - subnet: {{ network.subnet }}
