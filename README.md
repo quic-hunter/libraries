@@ -1,5 +1,20 @@
 # QUIC Hunter: Finding QUIC Deployments and Identifying Server Libraries Across the Internet
 
+This repository is based on the paper *QUIC Hunter: Finding QUIC Deployments and Identifying Server Libraries Across the Internet* published in the proceedings of the Passive and Active Measurement Conference (PAM) 2024.
+For more information, we refer to the paper.
+
+If you use material from this repository, please cite the paper:
+```
+@inproceedings{zirngibl2024quichunting,
+  author = {Zirngibl, Johannes and Gebauer, Florian and Sattler, Patrick and Sosnowski, Markus and Carle, Georg},
+  title = {{QUIC Hunter: Finding QUIC Deployments and Identifying Server Libraries Across the Internet}},
+  booktitle = {Passive and Active Measurement Conference (PAM)},
+  year = {2024},
+  month = mar,
+  month_numeric = {3}
+}
+```
+
 ##  Library Identification Tools
 The ```identification``` directory contains scripts to identify QUIC libraries based on the [QScanner](https://github.com/tumi8/qscanner) output and the methodology described in the paper.
 
